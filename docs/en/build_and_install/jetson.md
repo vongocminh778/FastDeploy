@@ -29,6 +29,26 @@ make -j8
 make install
 ```
 
+Prerequisite for Compiling on NVIDIA Jetson Xavier NX:
+
+- gcc/g++ >= 5.4 (8.2 is recommended)
+- cmake >= 3.10.0
+- jetpack >= 4.6.1
+
+If you need to integrate Paddle Inference backend(Support CPU/GPU)，please download and decompress the prebuilt library in [Paddle Inference prebuild libraries](https://www.paddlepaddle.org.cn/inference/v2.4/guides/install/download_lib.html#c) according to your develop envriment.
+
+```
+git clone https://github.com/PaddlePaddle/FastDeploy.git
+cd FastDeploy
+mkdir build && cd build
+cmake .. -DBUILD_ON_JETSON=ON  -DBUILD_PADDLE2ONNX=ON -DENABLE_VISION=ON \
+        -DENABLE_PADDLE_BACKEND=ON -DPADDLEINFERENCE_DIRECTORY=/Download/paddle_inference_install_dir \
+        -DPADDLEINFERENCE_VERSION=2.4.2 -DCMAKE_INSTALL_PREFIX=${PWD}/installed_fastdeploy \
+        -DPYTHON_EXECUTABLE=$(which python3)
+make -j6
+make install
+```
+
 Once compiled, the C++ inference library is generated in the directory specified by `CMAKE_INSTALL_PREFIX`
 
 ## How to Build and Install FastDeploy Python Library
